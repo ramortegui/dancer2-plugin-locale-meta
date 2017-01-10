@@ -1,16 +1,16 @@
-package t::lib::TestApp1;
+package t::lib::TestApp;
 
 use Dancer2;
+use Cwd;
 
 BEGIN{
   set plugins => {
       'Locale::Meta' => {
-        
+        'locale_path_directory' => Cwd->cwd.'/t/i18n'
       },
   };
 }
 
-use Dancer2::Plugin::Locale::Meta;
 
 get '/' => sub {
   return "ok";

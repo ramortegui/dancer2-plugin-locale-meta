@@ -1,9 +1,10 @@
 package Dancer2::Plugin::Locale::Meta;
 
+# ABSTRACT: Interface to support multilanguage using Locale::Meta package.
+
 use strict;
 use warnings;
 use Dancer2::Plugin;
-use Dancer2::FileUtils;
 use Locale::Meta;
 
 our $VERSION = '0.001';
@@ -40,6 +41,7 @@ based on L<Dancer2::Plugin::Locale::Wolowitz> plugin.
       fallback: "en"
       locale_path_directory: "i18n"
       lang_session: "lang"
+=cut
 
 BEGIN{
   has 'fallback' => (
@@ -51,7 +53,10 @@ BEGIN{
   has 'locale_path_directory' => (
     is => 'ro',
     from_config => 1,
-    default => sub { './i18n' }
+    lazy => 1,
+    default => sub { 
+      './i18n'
+    }
   );
 
   has 'lang_session' => (
@@ -62,35 +67,35 @@ BEGIN{
 
   has 'locale_meta' => (
     is => 'rw',
-    default => sub {
-
-    $locale_meta ||= Locale::Meta->new(_path_directory_locale($self));
-
-    }
   );
-
-  plugin_keywords qw/
-    loc
-  /;
 
 }
 
+
 sub BUILD {
   my $plugin = shift;
+  #Initialize Locale::Meta module
+  my $lm = Locale::Meta->new( $plugin->locale_path_directory );
+  #Set the locale::meta module as a variable of the plugin.
+  $plugin->locale_meta($lm);
+
   $plugin->app->add_hook( Dancer2::Core::Hook->new(
     name => 'before_template_render',
     code => sub {
       my $tokens = shift;
-      $tokens->{l} = sub { loc($self, @_); };
+      $tokens->{l} = sub { loc($plugin, @_); };
     }
   ));
 }
 
-sub loc {
-    my ($self, $str, $args, $force_lang) = @_;
-    return 'yes';
-};
 
+plugin_keywords ('loc');
 
+sub loc{
+  my ($self, $str, $args, $force_lang) = @_;
+  my $app = $self->app;
+  my $lang = $force_lang || $app->session->read($self->lang_session) || $self->fallback;
+  return $self->locale_meta->loc($str,$lang,@$args);
+}
 
 1;
