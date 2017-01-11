@@ -7,23 +7,23 @@ use warnings;
 use Dancer2::Plugin;
 use Locale::Meta;
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
-=head NAME
+=head1 NAME
 
 Dancer2::Pluging::Locale::Meta
 
-=head DESCRIPTION
+=head1 DESCRIPTION
 
 This plugin allow Dancer2 developers to use L<Locale::Meta> package.  This Plugin is
 based on L<Dancer2::Plugin::Locale::Wolowitz> plugin.
 
-=head SYNOPSIS
+=head1 SYNOPSIS
 
   use Dancer2;
   use Dancer2::Plugin::Locale::Meta;
 
-  # in your templates
+  # in your routes
 
   get '/' => sub {
     my $greeting = loc("hello");
@@ -34,7 +34,7 @@ based on L<Dancer2::Plugin::Locale::Wolowitz> plugin.
 
   <% l('greeting') %>
 
-=head CONFIGURATION
+=head1 CONFIGURATION
 
   plugins:
     Locale::Meta:
