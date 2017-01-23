@@ -27,6 +27,27 @@ Plugin is based on Dancer2::Plugin::Locale::Wolowitz plugin.
 
     <% l('greeting') %>
 
+### loading customized structure
+To load a data structure, you need to define a hash ref supported by Locale::Meta.
+
+eg. 
+    my $structure = {
+      "en" => {
+        "goodbye"   => {
+          "trans" => "bye",
+        }
+      },
+      "es" => {
+        "goodbye"   => {
+          "trans" => "chao",
+        }
+      }
+    };
+
+In order to load the data use the keyword on your routes:
+
+    load_structure($structure);
+
 # CONFIGURATION
     plugins:
       Locale::Meta:
