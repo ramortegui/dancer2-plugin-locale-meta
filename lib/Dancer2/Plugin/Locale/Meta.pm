@@ -78,7 +78,6 @@ sub BUILD {
   my $lm = Locale::Meta->new( $plugin->locale_path_directory );
   #Set the locale::meta module as a variable of the plugin.
   $plugin->locale_meta($lm);
-
   $plugin->app->add_hook( Dancer2::Core::Hook->new(
     name => 'before_template_render',
     code => sub {
@@ -86,16 +85,22 @@ sub BUILD {
       $tokens->{l} = sub { loc($plugin, @_); };
     }
   ));
+
 }
 
-
-plugin_keywords ('loc');
+plugin_keywords ('loc','load_structure');
+plugin_hooks ('charge');
 
 sub loc{
   my ($self, $str, $args, $force_lang) = @_;
   my $app = $self->app;
   my $lang = $force_lang || $app->session->read($self->lang_session) || $self->fallback;
   return $self->locale_meta->loc($str,$lang,@$args);
+}
+
+sub load_structure {
+  my ($self, $structure) = @_;
+  return $self->locale_meta->charge($structure);
 }
 
 1;
