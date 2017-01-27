@@ -1,4 +1,4 @@
-package t::lib::TestApp1;
+package t::lib::TestApp2;
 
 use Dancer2;
 BEGIN{
