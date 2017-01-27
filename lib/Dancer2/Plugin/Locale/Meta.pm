@@ -7,7 +7,7 @@ use warnings;
 use Dancer2::Plugin;
 use Locale::Meta;
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 =head1 NAME
 
@@ -33,6 +33,27 @@ based on L<Dancer2::Plugin::Locale::Wolowitz> plugin.
   # in your template
 
   <% l('greeting') %>
+
+  # load custom structure on your app
+
+
+    my $structure = {
+      "en" => {
+        "goodbye"   => {
+          "trans" => "bye",
+        }
+      },
+      "es" => {
+        "goodbye"   => {
+          "trans" => "chao",
+        }
+      }
+    };
+
+    In order to load the data use the keyword on your routes:
+
+    load_structure($structure);
+
 
 =head1 CONFIGURATION
 
