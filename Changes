@@ -1,0 +1,6 @@
+Revision history for Dancer2::Plugin::Locale::Meta 
+
+0.004  2017-01-30
+       Try callback translation if the term wasn't found 
+       using a different language.
+
