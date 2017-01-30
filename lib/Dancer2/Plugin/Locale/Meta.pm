@@ -116,7 +116,12 @@ sub loc{
   my ($self, $str, $args, $force_lang) = @_;
   my $app = $self->app;
   my $lang = $force_lang || $app->session->read($self->lang_session) || $self->fallback;
-  return $self->locale_meta->loc($str,$lang,@$args);
+  my $msg = $self->locale_meta->loc($str,$lang,@$args);
+  #trying fallback
+  if( $msg eq $str ){
+    $msg = $self->locale_meta->loc($str,$self->fallback,@$args);
+  }
+  return $msg;
 }
 
 sub load_structure {
