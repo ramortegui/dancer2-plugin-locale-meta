@@ -7,7 +7,7 @@ use warnings;
 use Dancer2::Plugin;
 use Locale::Meta;
 
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 
 =head1 NAME
 
@@ -25,10 +25,14 @@ based on L<Dancer2::Plugin::Locale::Wolowitz> plugin.
 
   # in your routes
 
+  ## Getting the translation
   get '/' => sub {
     my $greeting = loc("hello");
     template index.tt, { greeting => $greeting }
   }
+  
+  ## Getting locale_meta attribute
+  my $locale_meta = locale_meta;
 
   # in your template
 
@@ -109,7 +113,7 @@ sub BUILD {
 
 }
 
-plugin_keywords ('loc','load_structure');
+plugin_keywords ('loc','load_structure','locale_meta');
 plugin_hooks ('charge');
 
 sub loc{

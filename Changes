@@ -4,3 +4,7 @@ Revision history for Dancer2::Plugin::Locale::Meta
        Try callback translation if the term wasn't found 
        using a different language.
 
+0.005  2017-02-03
+       Add prereq Locale::Meta 0.005
+      
+

@@ -16,12 +16,15 @@ Plugin is based on Dancer2::Plugin::Locale::Wolowitz plugin.
     use Dancer2;
     use Dancer2::Plugin::Locale::Meta;
 
-### in your templates
+### in your routes
 
+#### Getting the translation
     get '/' => sub {
       my $greeting = loc("hello");
       template index.tt, { greeting => $greeting }
     }
+#### Getting locale_meta attribute
+    my $locale_meta = locale_meta
 
 ### in your template
 
