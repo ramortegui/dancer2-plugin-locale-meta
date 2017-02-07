@@ -7,7 +7,7 @@ use warnings;
 use Dancer2::Plugin;
 use Locale::Meta;
 
-our $VERSION = '0.005';
+our $VERSION = '0.006';
 
 =head1 NAME
 
