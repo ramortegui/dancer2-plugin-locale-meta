@@ -80,7 +80,7 @@ BEGIN{
     from_config => 1,
     lazy => 1,
     default => sub { 
-      './i18n'
+      undef;
     }
   );
 
